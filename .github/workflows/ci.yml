@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Swift build and offline checks
+    # ClearSpeak is a macOS-only SwiftPM package (platforms: .macOS(.v13)).
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Build
+        run: swift build
+
+      - name: Offline checks
+        # Same entry point as scripts/test.sh: no XCTest dependency, runs with
+        # Command Line Tools alone. Never touches models/ or .venv/.
+        run: ./scripts/test.sh

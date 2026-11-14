@@ -1,0 +1,68 @@
+# Validation
+
+Measured evidence for ClearSpeak v0.5.0 (build 7), condensed from the project's development log (September 2026). All runs were on one Apple M4 Max with 64 GB of unified memory, using fixed, harmless sample text, with the speech worker's network access denied. These are signal, timing and behavior checks. They are not listening scores, and other hardware will differ.
+
+## Offline checks
+
+- `./scripts/test.sh`: 15 native checks plus 3 Python asset-manifest checks pass. Coverage includes:
+  - catalog consistency
+  - missing model shard, reference, embedding or interpreter
+  - worker process switching and warm reuse across engines
+  - network denial inside the worker sandbox
+  - PCM pause, resume, rate and drain
+  - malformed audio
+  - stale-generation cancellation
+  - playback reserve, starvation recovery and short-reading drain
+  - real Carbon hotkey registration and collision rollback
+  - clipboard restoration races
+- Release compilation, resource-bundle packaging and `codesign --verify --strict` pass with Command Line Tools alone.
+
+## Real synthesis
+
+- Every voice in the catalog generated finite, non-silent 24 kHz audio twice through the production worker. Each also passed real cancellation of an in-progress generation. Measured worker termination: Ryan 0.039 s, Fish 0.182 s.
+- Long-form: 36 consecutive sentences per engine (Kokoro, VoxCPM, Fish, Voxtral) produced about 170 s of speech each.
+- `swift run ClearSpeakChecks --live-narrators`: 5 real playback checks pass through AVAudioEngine. They cover Kokoro → VoxCPM → Fish → Voxtral → Kokoro switching, pause/resume during preparation, Stop, and recovery.
+- `swift run ClearSpeakChecks --live-continuity`: a ~1,100-byte Warm Female (VoxCPM) passage at 1.25× ran as 3 chunks and 104 PCM packets with 1 playback start and 0 queue underruns.
+
+## Measured warm runs
+
+First PCM is measured after the worker is ready, so it excludes model load. MLX peak excludes other process memory.
+
+| Voice | First PCM | Audio s / generation s | MLX peak |
+| --- | ---: | ---: | ---: |
+| Ryan (Qwen3-TTS) | 0.26–0.30 s | 3.36–3.41× | 5.48 GB |
+| Heart (Kokoro) | 0.143 s | 41.63× | 2.14 GB |
+| Bella (Kokoro) | 0.145 s | 45.34× | 2.25 GB |
+| Michael (Kokoro) | 0.156 s | 43.83× | 2.27 GB |
+| Emma (Kokoro) | 0.135 s | 42.86× | 2.10 GB |
+| Warm Male (VoxCPM) | 5.123 s | 1.41× | 7.94 GB |
+| Warm Female (VoxCPM) | 4.833 s | 1.39× | 8.07 GB |
+| Warm Male (Fish) | 4.475 s | 1.45× | 12.81 GB |
+| Warm Female (Fish) | 4.560 s | 1.49× | 13.43 GB |
+| Fish | 5.589 s | ~1.48× | 13.77 GB |
+| Casual Male (Voxtral) | 0.327 s | 3.29× | 3.37 GB |
+| Casual Female (Voxtral) | 0.372 s | 3.11× | 3.40 GB |
+
+Qwen model load took 1.76 s. A cold first run, including first-use shader compilation, took 6.26 s from launch to audio. Long-form throughput was:
+
+- Kokoro: 4.16–44.92×
+- VoxCPM: 0.67–1.40×
+- Fish: 0.49–1.24×
+- Voxtral: 1.37–2.75×
+
+Some of those runs overlapped other GPU work, so they are not a controlled comparison. VoxCPM and Fish can leave gaps at fast playback speeds.
+
+Breeze TTS 2 BF16 (audition only) generated at about 0.21× real time with the tested settings, which is why it is not offered as an app voice.
+
+## Design checks behind current settings
+
+- An early Fish experiment with a free-form style instruction spoke that instruction aloud. A local Whisper-tiny pass detected it. Production Fish therefore uses reference audio only.
+- For VoxCPM, a fixed synthetic prompt plus its transcript, 6 diffusion steps and a fixed seed narrowed the estimated median-pitch range across three paragraphs from 29 Hz to 6 Hz. It also narrowed the phrase RMS range from 5.4 dB to 1.1 dB and raised throughput from 1.27× to 1.48–1.70×, compared with reference-only at 10 steps. These are limited signal diagnostics.
+- Offline Whisper-tiny diagnostics recovered the intended main passages, but some clips showed omissions or hallucinated tails. No word-accuracy score is claimed.
+
+## Not yet verified
+
+- Selected-text reading from every app. Acrobat, for example, needs the Cmd+C fallback.
+- A real logout or reboot with Launch at login. Only a simulated login-launch event was checked (`swift scripts/check-login-launch.swift`).
+- Other Macs, other macOS versions, and notarized distribution.
+- Subjective voice quality and long-reading comfort.

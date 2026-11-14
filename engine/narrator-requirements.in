@@ -1,0 +1,9 @@
+# Additional local text processing and tokenizer dependencies. Keep the existing
+# speech stack pinned; upgrades are a separate change.
+-c requirements.lock
+misaki==0.9.4
+# Non-transformer English G2P: avoid an unused PyTorch runtime.
+num2words
+phonemizer-fork
+spacy
+espeakng-loader

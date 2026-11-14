@@ -1,0 +1,5 @@
+# Isolate Voxtral tokenizer numpy requirements from the original speech environment.
+mlx-audio==0.5.1
+mlx==0.32.2
+numpy==2.3.5
+mistral-common[audio]==1.12.0

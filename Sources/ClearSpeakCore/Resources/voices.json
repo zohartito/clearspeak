@@ -1,0 +1,257 @@
+[
+  {
+    "name": "Heart (Kokoro)",
+    "engine": "kokoro",
+    "directory": "kokoro-82m-bf16",
+    "files": [
+      "config.json",
+      "kokoro-v1_0.safetensors",
+      ".clearspeak-ready.json",
+      "voices/af_heart.safetensors"
+    ],
+    "modelName": "Kokoro 82M \u00b7 BF16 \u00b7 Apple Silicon",
+    "detail": "American English preset. A lightweight option for everyday reading.",
+    "preferredBytes": 600,
+    "original": false,
+    "preset": "af_heart",
+    "language": "a"
+  },
+  {
+    "name": "Bella (Kokoro)",
+    "engine": "kokoro",
+    "directory": "kokoro-82m-bf16",
+    "files": [
+      "config.json",
+      "kokoro-v1_0.safetensors",
+      ".clearspeak-ready.json",
+      "voices/af_bella.safetensors"
+    ],
+    "modelName": "Kokoro 82M \u00b7 BF16 \u00b7 Apple Silicon",
+    "detail": "American English preset. A lightweight option for everyday reading.",
+    "preferredBytes": 600,
+    "original": false,
+    "preset": "af_bella",
+    "language": "a"
+  },
+  {
+    "name": "Michael (Kokoro)",
+    "engine": "kokoro",
+    "directory": "kokoro-82m-bf16",
+    "files": [
+      "config.json",
+      "kokoro-v1_0.safetensors",
+      ".clearspeak-ready.json",
+      "voices/am_michael.safetensors"
+    ],
+    "modelName": "Kokoro 82M \u00b7 BF16 \u00b7 Apple Silicon",
+    "detail": "American English preset. A lightweight option for everyday reading.",
+    "preferredBytes": 600,
+    "original": false,
+    "preset": "am_michael",
+    "language": "a"
+  },
+  {
+    "name": "Emma (Kokoro)",
+    "engine": "kokoro",
+    "directory": "kokoro-82m-bf16",
+    "files": [
+      "config.json",
+      "kokoro-v1_0.safetensors",
+      ".clearspeak-ready.json",
+      "voices/bf_emma.safetensors"
+    ],
+    "modelName": "Kokoro 82M \u00b7 BF16 \u00b7 Apple Silicon",
+    "detail": "British English preset. A lightweight option for everyday reading.",
+    "preferredBytes": 600,
+    "original": false,
+    "preset": "bf_emma",
+    "language": "b"
+  },
+  {
+    "name": "Warm Male (VoxCPM)",
+    "engine": "voxcpm",
+    "directory": "voxcpm2-bf16",
+    "files": [
+      "config.json",
+      "tokenizer.json",
+      "tokenizer_config.json",
+      "model-00001.safetensors",
+      "model-00002.safetensors",
+      "model.safetensors.index.json",
+      ".clearspeak-ready.json",
+      "../narrator-reference/warm-male.wav",
+      "../narrator-reference/warm-male.json"
+    ],
+    "modelName": "VoxCPM2 \u00b7 BF16 \u00b7 Apple Silicon",
+    "detail": "English narration using a fixed synthetic speech example. Longer passages take a moment to prepare.",
+    "preferredBytes": 360,
+    "original": false,
+    "reference": "warm-male"
+  },
+  {
+    "name": "Warm Male (Fish)",
+    "engine": "fish",
+    "directory": "fish-s2-pro-8bit",
+    "files": [
+      "config.json",
+      "tokenizer.json",
+      "model.safetensors",
+      "codec.safetensors",
+      "../narrator-reference/warm-male.wav",
+      "../narrator-reference/warm-male.json"
+    ],
+    "modelName": "Fish S2 Pro \u00b7 8-bit \u00b7 Apple Silicon",
+    "detail": "Fish reads using the same original synthetic narrator reference as Warm Male (VoxCPM). Optional; non-commercial use only (Fish Audio Research License).",
+    "preferredBytes": 160,
+    "original": false,
+    "reference": "warm-male",
+    "referenceDirectory": "narrator-reference"
+  },
+  {
+    "name": "Warm Female (VoxCPM)",
+    "engine": "voxcpm",
+    "directory": "voxcpm2-bf16",
+    "files": [
+      "config.json",
+      "tokenizer.json",
+      "tokenizer_config.json",
+      "model-00001.safetensors",
+      "model-00002.safetensors",
+      "model.safetensors.index.json",
+      ".clearspeak-ready.json",
+      "../narrator-reference/warm-female.wav",
+      "../narrator-reference/warm-female.json"
+    ],
+    "modelName": "VoxCPM2 \u00b7 BF16 \u00b7 Apple Silicon",
+    "detail": "English narration using a fixed synthetic speech example. Longer passages take a moment to prepare.",
+    "preferredBytes": 360,
+    "original": false,
+    "reference": "warm-female"
+  },
+  {
+    "name": "Warm Female (Fish)",
+    "engine": "fish",
+    "directory": "fish-s2-pro-8bit",
+    "files": [
+      "config.json",
+      "tokenizer.json",
+      "model.safetensors",
+      "codec.safetensors",
+      "../narrator-reference/warm-female.wav",
+      "../narrator-reference/warm-female.json"
+    ],
+    "modelName": "Fish S2 Pro \u00b7 8-bit \u00b7 Apple Silicon",
+    "detail": "Fish reads using the same original synthetic narrator reference as Warm Female (VoxCPM). Optional; non-commercial use only (Fish Audio Research License).",
+    "preferredBytes": 160,
+    "original": false,
+    "reference": "warm-female",
+    "referenceDirectory": "narrator-reference"
+  },
+  {
+    "name": "Casual Male (Voxtral)",
+    "engine": "voxtral",
+    "directory": "voxtral-4b-4bit",
+    "files": [
+      "config.json",
+      "model.safetensors",
+      "tekken.json",
+      ".clearspeak-ready.json",
+      "voice_embedding/casual_male.safetensors"
+    ],
+    "modelName": "Voxtral 4B \u00b7 4-bit \u00b7 Apple Silicon",
+    "detail": "Conversational English preset. First use loads the local model. Optional; non-commercial use only (CC BY-NC 4.0).",
+    "preferredBytes": 160,
+    "original": false,
+    "preset": "casual_male",
+    "pythonRelativePath": ".local-runtime/voxtral/bin/python"
+  },
+  {
+    "name": "Casual Female (Voxtral)",
+    "engine": "voxtral",
+    "directory": "voxtral-4b-4bit",
+    "files": [
+      "config.json",
+      "model.safetensors",
+      "tekken.json",
+      ".clearspeak-ready.json",
+      "voice_embedding/casual_female.safetensors"
+    ],
+    "modelName": "Voxtral 4B \u00b7 4-bit \u00b7 Apple Silicon",
+    "detail": "Conversational English preset. First use loads the local model. Optional; non-commercial use only (CC BY-NC 4.0).",
+    "preferredBytes": 160,
+    "original": false,
+    "preset": "casual_female",
+    "pythonRelativePath": ".local-runtime/voxtral/bin/python"
+  },
+  {
+    "name": "Fish",
+    "engine": "fish",
+    "directory": "fish-s2-pro-8bit",
+    "files": [
+      "config.json",
+      "tokenizer.json",
+      "model.safetensors",
+      "codec.safetensors",
+      "../fish-reference/ordinary-qwen.wav",
+      "../fish-reference/ordinary-qwen.json"
+    ],
+    "modelName": "Fish S2 Pro \u00b7 8-bit \u00b7 Apple Silicon",
+    "detail": "Original synthetic Qwen reference. Optional; non-commercial use only (Fish Audio Research License).",
+    "preferredBytes": 160,
+    "original": false,
+    "reference": "ordinary-qwen",
+    "referenceDirectory": "fish-reference"
+  },
+  {
+    "name": "Ryan",
+    "engine": "qwen",
+    "directory": "",
+    "files": [
+      "model.safetensors"
+    ],
+    "modelName": "Qwen3-TTS 1.7B \u00b7 BF16 \u00b7 Apple Silicon",
+    "detail": "Original Qwen preset with conversational delivery.",
+    "preferredBytes": 600,
+    "original": true,
+    "preset": "Ryan"
+  },
+  {
+    "name": "Aiden",
+    "engine": "qwen",
+    "directory": "",
+    "files": [
+      "model.safetensors"
+    ],
+    "modelName": "Qwen3-TTS 1.7B \u00b7 BF16 \u00b7 Apple Silicon",
+    "detail": "Original Qwen preset with conversational delivery.",
+    "preferredBytes": 600,
+    "original": true,
+    "preset": "Aiden"
+  },
+  {
+    "name": "Vivian",
+    "engine": "qwen",
+    "directory": "",
+    "files": [
+      "model.safetensors"
+    ],
+    "modelName": "Qwen3-TTS 1.7B \u00b7 BF16 \u00b7 Apple Silicon",
+    "detail": "Original Qwen preset with conversational delivery.",
+    "preferredBytes": 600,
+    "original": true,
+    "preset": "Vivian"
+  },
+  {
+    "name": "Serena",
+    "engine": "qwen",
+    "directory": "",
+    "files": [
+      "model.safetensors"
+    ],
+    "modelName": "Qwen3-TTS 1.7B \u00b7 BF16 \u00b7 Apple Silicon",
+    "detail": "Original Qwen preset with conversational delivery.",
+    "preferredBytes": 600,
+    "original": true,
+    "preset": "Serena"
+  }
+]

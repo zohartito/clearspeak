@@ -1,0 +1,11 @@
+.build/
+dist/
+.DS_Store
+.env*
+*.xcuserstate
+.swiftpm/
+*.log
+.venv/
+models/
+__pycache__/
+.local-runtime/

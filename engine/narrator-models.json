@@ -1,0 +1,153 @@
+{
+  "voxcpm": {
+    "repo": "mlx-community/VoxCPM2-bf16",
+    "revision": "a7fb80d9056983135a54ca3f71fcc5a637ccddf5",
+    "directory": "voxcpm2-bf16",
+    "files": {
+      "README.md": {
+        "size": 2170,
+        "algorithm": "git-sha1",
+        "digest": "aa76fb4c6b39c676ade8708571e8f89b3e6850ef"
+      },
+      "config.json": {
+        "size": 5210,
+        "algorithm": "git-sha1",
+        "digest": "8502c6139b3ca6d164ad3fe92af45140664e63ec"
+      },
+      "model-00001.safetensors": {
+        "size": 4286190791,
+        "algorithm": "sha256",
+        "digest": "676b05649d915e63f2291a0b091bd72250785b2448fe14ec81f3566cf5f47950"
+      },
+      "model-00002.safetensors": {
+        "size": 669068875,
+        "algorithm": "sha256",
+        "digest": "adddb9b85026763751beb20ba050aa46ef19b6b55cf6cb6a8c44ac8b06ec5cff"
+      },
+      "model.safetensors.index.json": {
+        "size": 67424,
+        "algorithm": "git-sha1",
+        "digest": "0e36c6f8ce21f4cfe4d68a76471ed722eec609ad"
+      },
+      "special_tokens_map.json": {
+        "size": 1632,
+        "algorithm": "git-sha1",
+        "digest": "8619dda6f3eb6d60d0a1bb274820054e46f41699"
+      },
+      "tokenizer.json": {
+        "size": 3676772,
+        "algorithm": "git-sha1",
+        "digest": "41a5c2a8dba4058dd1ad73fb898abf5e4f64f0f9"
+      },
+      "tokenizer_config.json": {
+        "size": 4952,
+        "algorithm": "git-sha1",
+        "digest": "213f667d43be76ffdf226393fe58375f913747fc"
+      }
+    }
+  },
+  "kokoro": {
+    "repo": "mlx-community/Kokoro-82M-bf16",
+    "revision": "a71e4d38b236d968966a2002c4c895dbd12b1c3c",
+    "directory": "kokoro-82m-bf16",
+    "files": {
+      "DONATE.md": {
+        "size": 2562,
+        "algorithm": "git-sha1",
+        "digest": "cd202d28b065e6d9eb396ca0c307d01520e1e296"
+      },
+      "README.md": {
+        "size": 536,
+        "algorithm": "git-sha1",
+        "digest": "f71c22754ee70200651e8e3cc33fcf4fc0dab8d1"
+      },
+      "SAMPLES.md": {
+        "size": 5956,
+        "algorithm": "git-sha1",
+        "digest": "d970051855ba0d8a16064c718af5dc29bcdd961a"
+      },
+      "VOICES.md": {
+        "size": 7625,
+        "algorithm": "git-sha1",
+        "digest": "ed78a806ffa121525449a848624600eae34037c7"
+      },
+      "config.json": {
+        "size": 2351,
+        "algorithm": "git-sha1",
+        "digest": "14a726edd3718279eac426630879ff743955b16a"
+      },
+      "kokoro-v1_0.safetensors": {
+        "size": 327115152,
+        "algorithm": "sha256",
+        "digest": "4e9ecdf03b8b6cf906070390237feda473dc13327cb8d56a43deaa374c02acd8"
+      },
+      "voices/af_bella.safetensors": {
+        "size": 522320,
+        "algorithm": "sha256",
+        "digest": "112d310468cbb3cf23404d3d0b50ad3adf017b87bf38bf9edd15f4ad572df6a3"
+      },
+      "voices/af_heart.safetensors": {
+        "size": 522320,
+        "algorithm": "sha256",
+        "digest": "2c1c733b0e6576c810e268d3e440c21dea4e0f0131a3ba4cfc98d7fe6136d094"
+      },
+      "voices/am_michael.safetensors": {
+        "size": 522320,
+        "algorithm": "sha256",
+        "digest": "3940147ded35deba0bb52e8132f89b719298e0520258c34584358aa5a24da2ea"
+      },
+      "voices/bf_emma.safetensors": {
+        "size": 522320,
+        "algorithm": "sha256",
+        "digest": "8878a75a6661305849eeb1d6293a7177250193616e161b4c3100636434dfe69f"
+      }
+    }
+  },
+  "voxtral": {
+    "repo": "mlx-community/Voxtral-4B-TTS-2603-mlx-4bit",
+    "revision": "f98fc91b9cb5adc7dab56102c690458276c14c6a",
+    "directory": "voxtral-4b-4bit",
+    "files": {
+      "README.md": {
+        "size": 1623,
+        "algorithm": "git-sha1",
+        "digest": "2c795877c940055f4dce98be8ca777855fd0a2d9"
+      },
+      "config.json": {
+        "size": 4345,
+        "algorithm": "git-sha1",
+        "digest": "0f0fc1498695f5ec726497862d72c11e25d626f9"
+      },
+      "model.safetensors": {
+        "size": 2509879373,
+        "algorithm": "sha256",
+        "digest": "a62a28f02ce54f9157877df44ce2da92bed97159ab19c2878445d3ec4d357786"
+      },
+      "model.safetensors.index.json": {
+        "size": 73050,
+        "algorithm": "git-sha1",
+        "digest": "a13f716f7b1c46b30a3f49f2e04e3fec53d2d8a8"
+      },
+      "params.json": {
+        "size": 3482,
+        "algorithm": "git-sha1",
+        "digest": "126f50d9dad2def039fc552e8e8ffc72f612dc31"
+      },
+      "tekken.json": {
+        "size": 14894731,
+        "algorithm": "sha256",
+        "digest": "587989c9f56676b35e7d16d6fc61461301e402d908392a8ce16f0349f61b56d7"
+      },
+      "voice_embedding/casual_female.safetensors": {
+        "size": 1314904,
+        "algorithm": "sha256",
+        "digest": "9a2027d9265fd7ef4a55294b10ae8b2095dcad7547d50762a5012a3955ca0860"
+      },
+      "voice_embedding/casual_male.safetensors": {
+        "size": 903256,
+        "algorithm": "sha256",
+        "digest": "2056ade898f6f1b04c1af764f54d705038ac046f0b4967457a36989b69730fa8"
+      }
+    }
+  }
+}
