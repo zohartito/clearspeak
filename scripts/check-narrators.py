@@ -96,7 +96,9 @@ class Worker:
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--voices", nargs="+", choices=list(VOICES), default=list(VOICES)[:10])
+    parser.add_argument("--voices", nargs="+", choices=list(VOICES),
+                        default=[name for name, voice in VOICES.items()
+                                 if voice["engine"] in {"kokoro", "voxcpm", "voxtral"}])
     parser.add_argument("--long-form", action="store_true", help="Repeat fixed paragraphs for a longer continuity audition")
     parser.add_argument("--output", type=Path, default=ROOT / "dist/narrator-checks")
     args = parser.parse_args()
@@ -109,7 +111,7 @@ def main():
         started = time.monotonic()
         try:
             if worker.receive()["event"] != "ready":
-                raise RuntimeError("Worker failed to load")
+                raise RuntimeError(f"Worker failed to load: {voice}")
             load = round(time.monotonic() - started, 3)
             slug = voice.lower().replace(" (", "-").replace(")", "").replace(" ", "-")
             clips = []
