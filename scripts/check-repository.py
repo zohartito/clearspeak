@@ -16,6 +16,11 @@ class RepositoryChecks(unittest.TestCase):
         # mlx==0.32.2 has arm64 wheels starting at macOS 14, not macOS 13.
         self.assertEqual([readme, package, bundle], ["14", "14", "14.0"])
 
+    def test_clr06_fish_license_link_uses_audited_target(self):
+        # Offline regression for the audited model-card target, not an HTTP availability check.
+        targets = re.findall(r"\[Fish Audio Research License\]\(([^)]+)\)", (ROOT / "README.md").read_text())
+        self.assertEqual(targets, ["https://huggingface.co/fishaudio/s2-pro/blob/main/LICENSE.md"])
+
 
 if __name__ == "__main__":
     unittest.main()
