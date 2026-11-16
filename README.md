@@ -7,7 +7,7 @@ Highlight text in almost any app, press **Control–Option–R**, and ClearSpeak
 ## Requirements
 
 - A Mac with Apple Silicon (M1 or later). The MLX runtime does not support Intel Macs.
-- macOS 13 or later.
+- macOS 14 or later.
 - Xcode Command Line Tools (`xcode-select --install`), with Swift 5.9 or later. Full Xcode is not needed.
 - [uv](https://docs.astral.sh/uv/) for the isolated Python 3.12 environment. Setup downloads Python if it is missing and does not touch other projects.
 - Disk and memory, depending on which voices you install:

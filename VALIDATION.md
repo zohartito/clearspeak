@@ -66,3 +66,8 @@ Breeze TTS 2 BF16 (audition only) generated at about 0.21× real time with the t
 - A real logout or reboot with Launch at login. Only a simulated login-launch event was checked (`swift scripts/check-login-launch.swift`).
 - Other Macs, other macOS versions, and notarized distribution.
 - Subjective voice quality and long-reading comfort.
+
+## Audit fixes — 2026-11-15
+
+- CLR-01 baseline: 12 passed, 0 failed, 6 skipped (9 native checks and 3 Python asset checks passed). The audit forbids hardware and desktop interaction, so an isolated scratch copy skips the five AVAudioEngine checks and the global hotkey check before their closures run. The private named pasteboards and sandboxed mock workers run normally; the real clipboard, models and desktop apps are not used. The same exclusions apply to subsequent audit runs; existing repository checks are unchanged.
+- CLR-01: reproduced the pinned dependency resolution failure with `MACOSX_DEPLOYMENT_TARGET=13.0 uv pip install --dry-run --python-version 3.12 --python-platform aarch64-apple-darwin -r engine/requirements.lock`; macOS 14 resolves all 35 packages. `RepositoryChecks.test_clr01_minimum_macos_matches_pinned_runtime` failed for the three macOS 13 declarations, then passed with README, SwiftPM and the app bundle set to macOS 14. This is resolver and metadata evidence, not execution on macOS 13 or 14.

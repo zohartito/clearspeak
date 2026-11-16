@@ -10,7 +10,7 @@ permissions:
 jobs:
   checks:
     name: Swift build and offline checks
-    # ClearSpeak is a macOS-only SwiftPM package (platforms: .macOS(.v13)).
+    # ClearSpeak is a macOS-only SwiftPM package (platforms: .macOS(.v14)).
     runs-on: macos-latest
     steps:
       - name: Checkout
