@@ -46,7 +46,9 @@ To read highlighted text, enable ClearSpeak in **System Settings → Privacy & S
 
 ## Voices
 
-Only voices whose files are fully installed appear in Settings. Models are downloaded from Hugging Face at pinned revisions by the setup scripts. Each download is checked against `hf cache verify` or the sizes and digests in `engine/narrator-models.json`. **No model weights, voice embeddings or reference audio are included in this repository.** After setup, reading works offline.
+Settings always lists the four base Qwen voices (Ryan, Aiden, Vivian and Serena), and keeps the selected voice visible even if its files are missing. Other optional voices appear only when fully installed. The status line shows whether the selected model is installed or needs setup; unavailable voices need setup before they can read.
+
+Models are downloaded from Hugging Face at pinned revisions by the setup scripts. Each download is checked against `hf cache verify` or the sizes and digests in `engine/narrator-models.json`. **No model weights, voice embeddings or reference audio are included in this repository.** After setup, reading works offline.
 
 | Voice(s) in the app | Model and source | Licence |
 | --- | --- | --- |
@@ -92,7 +94,7 @@ ClearSpeak does not include any voice that imitates a real, identifiable person,
 - AppKit menu bar UI, Carbon global shortcuts and Accessibility selection capture (`Sources/ClearSpeak`, `Sources/ClearSpeakCore`).
 - One voice catalog, `Sources/ClearSpeakCore/Resources/voices.json`, drives Swift settings, install checks and Python dispatch.
 - A Python worker (`engine/worker.py`) runs MLX-Audio 0.5.1. Voxtral has its own interpreter in `.local-runtime/voxtral/` because its tokenizer needs a different NumPy.
-- Text is split at sentence boundaries, with soft targets of 160–600 bytes per engine, a hard 600-byte chunk limit and at most 50 KB per reading. Wording and whitespace are preserved.
+- Text is split at sentence boundaries, with soft targets of 160–600 bytes per engine, a hard 600-byte chunk limit and at most 50 KB per reading. Wording and internal whitespace are preserved; leading and trailing whitespace is trimmed.
 - Playback goes through AVAudioEngine with pitch-preserving rate control. It builds about four seconds of audio before starting and rebuilds that reserve if generation falls behind.
 
 ## Testing
