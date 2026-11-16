@@ -205,6 +205,57 @@ struct TimedPacket {
                 try expect(!snapshot.restore(board, ifUnchanged: count), "Overwrote new copy")
                 try expect(board.string(forType: .string) == "new user copy", "Copy lost")
             }
+            try await run("CLR-03 capture rejects two clipboard writes before the first poll") {
+                let board = NSPasteboard.withUniqueName()
+                defer { board.releaseGlobally() }
+                board.setString("original", forType: .string)
+                do {
+                    _ = try await SelectionCapture().captureClipboard(pasteboard: board, copy: {
+                        board.clearContents(); board.setString("selection", forType: .string)
+                        board.clearContents(); board.setString("new user copy", forType: .string)
+                    }, isSameApp: { true })
+                    throw CheckFailed("Capture accepted an ambiguous newer copy")
+                } catch CaptureError.clipboardBusy {}
+                try expect(board.string(forType: .string) == "new user copy", "Capture overwrote the newer copy")
+            }
+            try await run("CLR-03 capture accepts one copy and restores the original") {
+                let board = NSPasteboard.withUniqueName()
+                defer { board.releaseGlobally() }
+                board.setString("original", forType: .string)
+                let text = try await SelectionCapture().captureClipboard(pasteboard: board, copy: {
+                    board.clearContents(); board.setString("selection", forType: .string)
+                }, isSameApp: { true })
+                try expect(text == "selection", "Capture lost the selection")
+                try expect(board.string(forType: .string) == "original", "Capture did not restore the original")
+            }
+            try await run("CLR-03 capture preserves a copy after focus changes") {
+                let board = NSPasteboard.withUniqueName()
+                defer { board.releaseGlobally() }
+                board.setString("original", forType: .string)
+                do {
+                    _ = try await SelectionCapture().captureClipboard(pasteboard: board, copy: {
+                        board.clearContents(); board.setString("unattributed copy", forType: .string)
+                    }, isSameApp: { false })
+                    throw CheckFailed("Capture accepted a copy after focus changed")
+                } catch CaptureError.changedApp {}
+                try expect(board.string(forType: .string) == "unattributed copy", "Capture overwrote an unattributed copy")
+            }
+            try await run("CLR-03 cancelled capture still restores a single copy") {
+                let board = NSPasteboard.withUniqueName()
+                defer { board.releaseGlobally() }
+                board.setString("original", forType: .string)
+                let task = Task {
+                    try await SelectionCapture().captureClipboard(pasteboard: board, copy: {
+                        board.clearContents(); board.setString("selection", forType: .string)
+                    }, isSameApp: { true })
+                }
+                task.cancel()
+                do {
+                    _ = try await task.value
+                    throw CheckFailed("Cancelled capture returned a selection")
+                } catch is CancellationError {}
+                try expect(board.string(forType: .string) == "original", "Cancellation prevented clipboard cleanup")
+            }
             try await run("Stop rejects late local generation") {
                 let controller = PlaybackController(provider: DelayedProvider())
                 var errorOccurred = false

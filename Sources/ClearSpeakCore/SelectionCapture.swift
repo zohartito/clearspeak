@@ -90,15 +90,21 @@ public enum CaptureError: LocalizedError {
         }
         guard NSWorkspace.shared.frontmostApplication?.processIdentifier == pid else { throw CaptureError.changedApp }
         if let focus = focusedElement(pid: pid), isSecure(focus) { throw CaptureError.secureField }
-        let pasteboard = NSPasteboard.general
+        return try await captureClipboard(pasteboard: .general, copy: {
+            guard let down = CGEvent(keyboardEventSource: nil, virtualKey: 8, keyDown: true),
+                  let up = CGEvent(keyboardEventSource: nil, virtualKey: 8, keyDown: false) else { throw CaptureError.noSelection }
+            down.flags = .maskCommand
+            up.flags = .maskCommand
+            down.postToPid(pid)
+            up.postToPid(pid)
+        }, isSameApp: { NSWorkspace.shared.frontmostApplication?.processIdentifier == pid })
+    }
+    /// Shared fallback path; explicit dependencies allow checks on private pasteboards without keystrokes.
+    public func captureClipboard(pasteboard: NSPasteboard, copy: () throws -> Void,
+                                 isSameApp: () -> Bool) async throws -> String {
         let original = try ClipboardSnapshot(pasteboard)
         let before = pasteboard.changeCount
-        guard let down = CGEvent(keyboardEventSource: nil, virtualKey: 8, keyDown: true),
-              let up = CGEvent(keyboardEventSource: nil, virtualKey: 8, keyDown: false) else { throw CaptureError.noSelection }
-        down.flags = .maskCommand
-        up.flags = .maskCommand
-        down.postToPid(pid)
-        up.postToPid(pid)
+        try copy()
         // Once Cmd+C is sent, complete cleanup even when the reading task is cancelled.
         for _ in 0..<20 {
             // An unstructured sleeper is not cancelled with the caller, so cleanup
@@ -106,8 +112,10 @@ public enum CaptureError: LocalizedError {
             await Task { try? await Task.sleep(nanoseconds: 50_000_000) }.value
             if pasteboard.changeCount != before {
                 let copiedCount = pasteboard.changeCount
+                // More than one write before a poll cannot be attributed to our Cmd+C.
+                guard copiedCount == before + 1 else { throw CaptureError.clipboardBusy }
                 let text = pasteboard.string(forType: .string)
-                let sameApp = NSWorkspace.shared.frontmostApplication?.processIdentifier == pid
+                let sameApp = isSameApp()
                 guard pasteboard.changeCount == copiedCount else { throw CaptureError.clipboardBusy }
                 // A focus change means attribution is uncertain: leave the new clipboard alone.
                 guard sameApp else { throw CaptureError.changedApp }
