@@ -21,6 +21,13 @@ class RepositoryChecks(unittest.TestCase):
         targets = re.findall(r"\[Fish Audio Research License\]\(([^)]+)\)", (ROOT / "README.md").read_text())
         self.assertEqual(targets, ["https://huggingface.co/fishaudio/s2-pro/blob/main/LICENSE.md"])
 
+    def test_clr15_actions_use_commit_pins(self):
+        refs = [ref for workflow in (ROOT / ".github/workflows").glob("*.y*ml")
+                for ref in re.findall(r"^\s*-?\s*uses:\s*([^\s#]+)", workflow.read_text(), re.M)]
+        self.assertTrue(refs)
+        mutable = [ref for ref in refs if not ref.startswith("./") and not re.fullmatch(r"[^@]+@[0-9a-f]{40}", ref)]
+        self.assertEqual(mutable, [])
+
 
 if __name__ == "__main__":
     unittest.main()
