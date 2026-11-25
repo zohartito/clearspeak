@@ -3,7 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "ClearSpeak",
-    platforms: [.macOS(.v13)],
+    platforms: [.macOS(.v14)],
     products: [.executable(name: "ClearSpeak", targets: ["ClearSpeak"])],
     targets: [
         .target(name: "ClearSpeakCore", resources: [.process("Resources")]),
